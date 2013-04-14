@@ -1,18 +1,18 @@
 /*
-* Copyright (C) 2010 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2010 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.android.systemui.statusbar.tablet;
 
@@ -115,7 +115,7 @@ public class TabletStatusBar extends BaseStatusBar implements
     private static final int NOTIFICATION_PRIORITY_MULTIPLIER = 10; // see NotificationManagerService
     private static final int HIDE_ICONS_BELOW_SCORE = Notification.PRIORITY_LOW * NOTIFICATION_PRIORITY_MULTIPLIER;
 
-    // The height of the bar, as definied by the build. It may be taller if we're plugged
+    // The height of the bar, as definied by the build.  It may be taller if we're plugged
     // into hdmi.
     int mNaturalBarHeight = -1;
     int mIconSize = -1;
@@ -232,10 +232,10 @@ public class TabletStatusBar extends BaseStatusBar implements
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
                     | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
-                PixelFormat.OPAQUE);
+                PixelFormat.TRANSLUCENT);
 
-        // We explicitly leave FLAG_HARDWARE_ACCELERATED out of the flags. The status bar occupies
-        // very little screen real-estate and is updated fairly frequently. By using CPU rendering
+        // We explicitly leave FLAG_HARDWARE_ACCELERATED out of the flags.  The status bar occupies
+        // very little screen real-estate and is updated fairly frequently.  By using CPU rendering
         // for the status bar, we prevent the GPU from having to wake up just to do these small
         // updates, which should help keep power consumption down.
 
@@ -311,7 +311,7 @@ public class TabletStatusBar extends BaseStatusBar implements
         lp.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED
                 | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING;
         lp.windowAnimations = com.android.internal.R.style.Animation; // == no animation
-// lp.windowAnimations = com.android.internal.R.style.Animation_ZoomButtons; // simple fade
+//        lp.windowAnimations = com.android.internal.R.style.Animation_ZoomButtons; // simple fade
 
         mWindowManager.addView(mNotificationPanel, lp);
 
@@ -477,7 +477,7 @@ public class TabletStatusBar extends BaseStatusBar implements
         }
 
         if (newIconHPadding != mIconHPadding || newIconSize != mIconSize) {
-// Slog.d(TAG, "size=" + newIconSize + " padding=" + newIconHPadding);
+//            Slog.d(TAG, "size=" + newIconSize + " padding=" + newIconHPadding);
             mIconHPadding = newIconHPadding;
             mIconSize = newIconSize;
             reloadAllNotificationIcons(); // reload the tray
@@ -622,10 +622,10 @@ public class TabletStatusBar extends BaseStatusBar implements
         // tuning parameters
         final int LIGHTS_GOING_OUT_SYSBAR_DURATION = 750;
         final int LIGHTS_GOING_OUT_SHADOW_DURATION = 750;
-        final int LIGHTS_GOING_OUT_SHADOW_DELAY = 0;
+        final int LIGHTS_GOING_OUT_SHADOW_DELAY    = 0;
 
         final int LIGHTS_COMING_UP_SYSBAR_DURATION = 200;
-// final int LIGHTS_COMING_UP_SYSBAR_DELAY = 50;
+//        final int LIGHTS_COMING_UP_SYSBAR_DELAY    = 50;
         final int LIGHTS_COMING_UP_SHADOW_DURATION = 0;
 
         LayoutTransition xition = new LayoutTransition();
@@ -807,10 +807,10 @@ public class TabletStatusBar extends BaseStatusBar implements
 
                             entry.icon.setBackgroundColor(0x20FFFFFF);
 
-// mNotificationPeekRow.setLayoutTransition(
-// peekIndex < mNotificationPeekIndex
-// ? mNotificationPeekScrubLeft
-// : mNotificationPeekScrubRight);
+//                          mNotificationPeekRow.setLayoutTransition(
+//                              peekIndex < mNotificationPeekIndex
+//                                  ? mNotificationPeekScrubLeft
+//                                  : mNotificationPeekScrubRight);
 
                             mNotificationPeekRow.removeAllViews();
                             mNotificationPeekRow.addView(copy.row);
@@ -1042,7 +1042,7 @@ public class TabletStatusBar extends BaseStatusBar implements
         }
         // Show the ticker if one is requested. Also don't do this
         // until status bar window is attached to the window manager,
-        // because... well, what's the point otherwise? And trying to
+        // because...  well, what's the point otherwise?  And trying to
         // run a ticker without being attached will crash!
         if (hasTicker(n.notification) && mStatusBarView.getWindowToken() != null) {
             if (0 == (mDisabled & (StatusBarManager.DISABLE_NOTIFICATION_ICONS
@@ -1341,11 +1341,11 @@ public class TabletStatusBar extends BaseStatusBar implements
         }
 
         public boolean onTouch(View v, MotionEvent event) {
-// Slog.d(TAG, String.format("touch: (%.1f, %.1f) initial: (%.1f, %.1f)",
-// event.getX(),
-// event.getY(),
-// mInitialTouchX,
-// mInitialTouchY));
+//            Slog.d(TAG, String.format("touch: (%.1f, %.1f) initial: (%.1f, %.1f)",
+//                        event.getX(),
+//                        event.getY(),
+//                        mInitialTouchX,
+//                        mInitialTouchY));
 
             if ((mDisabled & StatusBarManager.DISABLE_EXPAND) != 0) {
                 return true;
@@ -1472,7 +1472,7 @@ public class TabletStatusBar extends BaseStatusBar implements
         // need to see all those new emails, did you?
         int maxNotificationIconsCount = mMaxNotificationIcons;
         if (mInputMethodSwitchButton.getVisibility() != View.GONE) maxNotificationIconsCount --;
-        if (mCompatModeButton.getVisibility() != View.GONE) maxNotificationIconsCount --;
+        if (mCompatModeButton.getVisibility()        != View.GONE) maxNotificationIconsCount --;
 
         final boolean provisioned = isDeviceProvisioned();
         // If the device hasn't been through Setup, we only show system notifications
@@ -1610,3 +1610,5 @@ public class TabletStatusBar extends BaseStatusBar implements
                 || (mDisabled & StatusBarManager.DISABLE_HOME) != 0;
     }
 }
+
+

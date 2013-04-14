@@ -1,18 +1,18 @@
 /*
-* Copyright (C) 2010 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2010 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.android.systemui.statusbar.phone;
 
@@ -498,7 +498,7 @@ public class PhoneStatusBar extends BaseStatusBar {
         }
 
         // figure out which pixel-format to use for the status bar.
-        mPixelFormat = PixelFormat.OPAQUE;
+        mPixelFormat = PixelFormat.TRANSLUCENT;
 
         mSystemIconArea = (LinearLayout) mStatusBarView.findViewById(R.id.system_icon_area);
         mStatusIcons = (LinearLayout)mStatusBarView.findViewById(R.id.statusIcons);
@@ -508,7 +508,7 @@ public class PhoneStatusBar extends BaseStatusBar {
         mTickerView = mStatusBarView.findViewById(R.id.ticker);
 
         /* Destroy the old widget before recreating the expanded dialog
-to make sure there are no context issues */
+           to make sure there are no context issues */
         if (mRecreating)
             mPowerWidget.destroyWidget();
 
@@ -728,11 +728,11 @@ to make sure there are no context issues */
             mClingShown = true;
         }
 
-// final ImageView wimaxRSSI =
-// (ImageView)sb.findViewById(R.id.wimax_signal);
-// if (wimaxRSSI != null) {
-// mNetworkController.addWimaxIconView(wimaxRSSI);
-// }
+//        final ImageView wimaxRSSI =
+//                (ImageView)sb.findViewById(R.id.wimax_signal);
+//        if (wimaxRSSI != null) {
+//            mNetworkController.addWimaxIconView(wimaxRSSI);
+//        }
 
         // receive broadcasts
         IntentFilter filter = new IntentFilter();
@@ -807,7 +807,7 @@ to make sure there are no context issues */
     }
 
     void onBarViewDetached() {
-     // WindowManagerImpl.getDefault().removeView(mStatusBarWindow);
+     //   WindowManagerImpl.getDefault().removeView(mStatusBarWindow);
     }
 
     @Override
@@ -945,7 +945,7 @@ to make sure there are no context issues */
                     | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                     | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
                     | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
-                PixelFormat.OPAQUE);
+                PixelFormat.TRANSLUCENT);
         // this will allow the navbar to run in an overlay on devices that support this
         if (ActivityManager.isHighEndGfx()) {
             lp.flags |= WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;
@@ -1018,40 +1018,40 @@ to make sure there are no context issues */
         }
 
         /*
-* DISABLED due to missing API
-if (ENABLE_INTRUDERS && (
-// TODO(dsandler): Only if the screen is on
-notification.notification.intruderView != null)) {
-Slog.d(TAG, "Presenting high-priority notification");
-// special new transient ticker mode
-// 1. Populate mIntruderAlertView
+         * DISABLED due to missing API
+        if (ENABLE_INTRUDERS && (
+                   // TODO(dsandler): Only if the screen is on
+                notification.notification.intruderView != null)) {
+            Slog.d(TAG, "Presenting high-priority notification");
+            // special new transient ticker mode
+            // 1. Populate mIntruderAlertView
 
-if (notification.notification.intruderView == null) {
-Slog.e(TAG, notification.notification.toString() + " wanted to intrude but intruderView was null");
-return;
-}
+            if (notification.notification.intruderView == null) {
+                Slog.e(TAG, notification.notification.toString() + " wanted to intrude but intruderView was null");
+                return;
+            }
 
-// bind the click event to the content area
-PendingIntent contentIntent = notification.notification.contentIntent;
-final View.OnClickListener listener = (contentIntent != null)
-? new NotificationClicker(contentIntent,
-notification.pkg, notification.tag, notification.id)
-: null;
+            // bind the click event to the content area
+            PendingIntent contentIntent = notification.notification.contentIntent;
+            final View.OnClickListener listener = (contentIntent != null)
+                    ? new NotificationClicker(contentIntent,
+                            notification.pkg, notification.tag, notification.id)
+                    : null;
 
-mIntruderAlertView.applyIntruderContent(notification.notification.intruderView, listener);
+            mIntruderAlertView.applyIntruderContent(notification.notification.intruderView, listener);
 
-mCurrentlyIntrudingNotification = notification;
+            mCurrentlyIntrudingNotification = notification;
 
-// 2. Animate mIntruderAlertView in
-mHandler.sendEmptyMessage(MSG_SHOW_INTRUDER);
+            // 2. Animate mIntruderAlertView in
+            mHandler.sendEmptyMessage(MSG_SHOW_INTRUDER);
 
-// 3. Set alarm to age the notification off (TODO)
-mHandler.removeMessages(MSG_HIDE_INTRUDER);
-if (INTRUDER_ALERT_DECAY_MS > 0) {
-mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
-}
-} else
-*/
+            // 3. Set alarm to age the notification off (TODO)
+            mHandler.removeMessages(MSG_HIDE_INTRUDER);
+            if (INTRUDER_ALERT_DECAY_MS > 0) {
+                mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
+            }
+        } else
+         */
 
         if (notification.notification.fullScreenIntent != null) {
             // Stop screensaver if the notification has a full-screen intent.
@@ -1316,8 +1316,8 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
     }
 
     /**
-* State is one or more of the DISABLE constants from StatusBarManager.
-*/
+     * State is one or more of the DISABLE constants from StatusBarManager.
+     */
     @Override
     public void disable(int state) {
         final int old = mDisabled;
@@ -1332,25 +1332,25 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
         StringBuilder flagdbg = new StringBuilder();
         flagdbg.append("disable: < ");
         flagdbg.append(((state & StatusBarManager.DISABLE_EXPAND) != 0) ? "EXPAND" : "expand");
-        flagdbg.append(((diff & StatusBarManager.DISABLE_EXPAND) != 0) ? "* " : " ");
+        flagdbg.append(((diff  & StatusBarManager.DISABLE_EXPAND) != 0) ? "* " : " ");
         flagdbg.append(((state & StatusBarManager.DISABLE_NOTIFICATION_ICONS) != 0) ? "ICONS" : "icons");
-        flagdbg.append(((diff & StatusBarManager.DISABLE_NOTIFICATION_ICONS) != 0) ? "* " : " ");
+        flagdbg.append(((diff  & StatusBarManager.DISABLE_NOTIFICATION_ICONS) != 0) ? "* " : " ");
         flagdbg.append(((state & StatusBarManager.DISABLE_NOTIFICATION_ALERTS) != 0) ? "ALERTS" : "alerts");
-        flagdbg.append(((diff & StatusBarManager.DISABLE_NOTIFICATION_ALERTS) != 0) ? "* " : " ");
+        flagdbg.append(((diff  & StatusBarManager.DISABLE_NOTIFICATION_ALERTS) != 0) ? "* " : " ");
         flagdbg.append(((state & StatusBarManager.DISABLE_NOTIFICATION_TICKER) != 0) ? "TICKER" : "ticker");
-        flagdbg.append(((diff & StatusBarManager.DISABLE_NOTIFICATION_TICKER) != 0) ? "* " : " ");
+        flagdbg.append(((diff  & StatusBarManager.DISABLE_NOTIFICATION_TICKER) != 0) ? "* " : " ");
         flagdbg.append(((state & StatusBarManager.DISABLE_SYSTEM_INFO) != 0) ? "SYSTEM_INFO" : "system_info");
-        flagdbg.append(((diff & StatusBarManager.DISABLE_SYSTEM_INFO) != 0) ? "* " : " ");
+        flagdbg.append(((diff  & StatusBarManager.DISABLE_SYSTEM_INFO) != 0) ? "* " : " ");
         flagdbg.append(((state & StatusBarManager.DISABLE_BACK) != 0) ? "BACK" : "back");
-        flagdbg.append(((diff & StatusBarManager.DISABLE_BACK) != 0) ? "* " : " ");
+        flagdbg.append(((diff  & StatusBarManager.DISABLE_BACK) != 0) ? "* " : " ");
         flagdbg.append(((state & StatusBarManager.DISABLE_HOME) != 0) ? "HOME" : "home");
-        flagdbg.append(((diff & StatusBarManager.DISABLE_HOME) != 0) ? "* " : " ");
+        flagdbg.append(((diff  & StatusBarManager.DISABLE_HOME) != 0) ? "* " : " ");
         flagdbg.append(((state & StatusBarManager.DISABLE_RECENT) != 0) ? "RECENT" : "recent");
-        flagdbg.append(((diff & StatusBarManager.DISABLE_RECENT) != 0) ? "* " : " ");
+        flagdbg.append(((diff  & StatusBarManager.DISABLE_RECENT) != 0) ? "* " : " ");
         flagdbg.append(((state & StatusBarManager.DISABLE_CLOCK) != 0) ? "CLOCK" : "clock");
-        flagdbg.append(((diff & StatusBarManager.DISABLE_CLOCK) != 0) ? "* " : " ");
+        flagdbg.append(((diff  & StatusBarManager.DISABLE_CLOCK) != 0) ? "* " : " ");
         flagdbg.append(((state & StatusBarManager.DISABLE_SEARCH) != 0) ? "SEARCH" : "search");
-        flagdbg.append(((diff & StatusBarManager.DISABLE_SEARCH) != 0) ? "* " : " ");
+        flagdbg.append(((diff  & StatusBarManager.DISABLE_SEARCH) != 0) ? "* " : " ");
         flagdbg.append(">");
         Slog.d(TAG, flagdbg.toString());
 
@@ -1437,8 +1437,8 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
     }
 
     /**
-* All changes to the status bar and notifications funnel through here and are batched.
-*/
+     * All changes to the status bar and notifications funnel through here and are batched.
+     */
     private class H extends BaseStatusBar.H {
         @Override
         public void handleMessage(Message m) {
@@ -1503,7 +1503,7 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
         // Updating the window layout will force an expensive traversal/redraw.
         // Kick off the reveal animation after this is complete to avoid animation latency.
         if (revealAfterDraw) {
-// mHandler.post(mStartRevealAnimation);
+//            mHandler.post(mStartRevealAnimation);
         }
 
         visibilityChanged(true);
@@ -1875,16 +1875,16 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
     }
 
     /**
-* Enables or disables layers on the children of the notifications pile.
-*
-* When layers are enabled, this method attempts to enable layers for the minimal
-* number of children. Only children visible when the notification area is fully
-* expanded will receive a layer. The technique used in this method might cause
-* more children than necessary to get a layer (at most one extra child with the
-* current UI.)
-*
-* @param layerType {@link View#LAYER_TYPE_NONE} or {@link View#LAYER_TYPE_HARDWARE}
-*/
+     * Enables or disables layers on the children of the notifications pile.
+     *
+     * When layers are enabled, this method attempts to enable layers for the minimal
+     * number of children. Only children visible when the notification area is fully
+     * expanded will receive a layer. The technique used in this method might cause
+     * more children than necessary to get a layer (at most one extra child with the
+     * current UI.)
+     *
+     * @param layerType {@link View#LAYER_TYPE_NONE} or {@link View#LAYER_TYPE_HARDWARE}
+     */
     private void setPileLayers(int layerType) {
         final int count = mPile.getChildCount();
 
@@ -2277,7 +2277,7 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
 
         // Show the ticker if one is requested. Also don't do this
         // until status bar window is attached to the window manager,
-        // because... well, what's the point otherwise? And trying to
+        // because...  well, what's the point otherwise?  And trying to
         // run a ticker without being attached will crash!
         if (n.notification.tickerText != null && mStatusBarContainer.getWindowToken() != null) {
             if (0 == (mDisabled & (StatusBarManager.DISABLE_NOTIFICATION_ICONS
@@ -2349,28 +2349,28 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
     public void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
         synchronized (mQueueLock) {
             pw.println("Current Status Bar state:");
-            pw.println(" mExpandedVisible=" + mExpandedVisible
+            pw.println("  mExpandedVisible=" + mExpandedVisible
                     + ", mTrackingPosition=" + mTrackingPosition);
-            pw.println(" mTicking=" + mTicking);
-            pw.println(" mTracking=" + mTracking);
-            pw.println(" mNotificationPanel=" +
+            pw.println("  mTicking=" + mTicking);
+            pw.println("  mTracking=" + mTracking);
+            pw.println("  mNotificationPanel=" +
                     ((mNotificationPanel == null)
                             ? "null"
                             : (mNotificationPanel + " params=" + mNotificationPanel.getLayoutParams().debug(""))));
-            pw.println(" mAnimating=" + mAnimating
+            pw.println("  mAnimating=" + mAnimating
                     + ", mAnimY=" + mAnimY + ", mAnimVel=" + mAnimVel
                     + ", mAnimAccel=" + mAnimAccel);
-            pw.println(" mAnimLastTimeNanos=" + mAnimLastTimeNanos);
-            pw.println(" mAnimatingReveal=" + mAnimatingReveal
+            pw.println("  mAnimLastTimeNanos=" + mAnimLastTimeNanos);
+            pw.println("  mAnimatingReveal=" + mAnimatingReveal
                     + " mViewDelta=" + mViewDelta);
-            pw.println(" mDisplayMetrics=" + mDisplayMetrics);
-            pw.println(" mPile: " + viewInfo(mPile));
-            pw.println(" mTickerView: " + viewInfo(mTickerView));
-            pw.println(" mScrollView: " + viewInfo(mScrollView)
+            pw.println("  mDisplayMetrics=" + mDisplayMetrics);
+            pw.println("  mPile: " + viewInfo(mPile));
+            pw.println("  mTickerView: " + viewInfo(mTickerView));
+            pw.println("  mScrollView: " + viewInfo(mScrollView)
                     + " scroll " + mScrollView.getScrollX() + "," + mScrollView.getScrollY());
         }
 
-        pw.print(" mNavigationBarView=");
+        pw.print("  mNavigationBarView=");
         if (mNavigationBarView == null) {
             pw.println("null");
         } else {
@@ -2380,22 +2380,22 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
         if (DUMPTRUCK) {
             synchronized (mNotificationData) {
                 int N = mNotificationData.size();
-                pw.println(" notification icons: " + N);
+                pw.println("  notification icons: " + N);
                 for (int i=0; i<N; i++) {
                     NotificationData.Entry e = mNotificationData.get(i);
-                    pw.println(" [" + i + "] key=" + e.key + " icon=" + e.icon);
+                    pw.println("    [" + i + "] key=" + e.key + " icon=" + e.icon);
                     StatusBarNotification n = e.notification;
-                    pw.println(" pkg=" + n.pkg + " id=" + n.id + " score=" + n.score);
-                    pw.println(" notification=" + n.notification);
-                    pw.println(" tickerText=\"" + n.notification.tickerText + "\"");
+                    pw.println("         pkg=" + n.pkg + " id=" + n.id + " score=" + n.score);
+                    pw.println("         notification=" + n.notification);
+                    pw.println("         tickerText=\"" + n.notification.tickerText + "\"");
                 }
             }
 
             int N = mStatusIcons.getChildCount();
-            pw.println(" system icons: " + N);
+            pw.println("  system icons: " + N);
             for (int i=0; i<N; i++) {
                 StatusBarIconView ic = (StatusBarIconView) mStatusIcons.getChildAt(i);
-                pw.println(" [" + i + "] icon=" + ic);
+                pw.println("    [" + i + "] icon=" + ic);
             }
 
             if (false) {
@@ -2415,7 +2415,7 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
         }
 
         if (DEBUG_GESTURES) {
-            pw.print(" status bar gestures: ");
+            pw.print("  status bar gestures: ");
             mGestureRec.dump(fd, pw, args);
         }
 
@@ -2755,12 +2755,12 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
     }
 
     /**
-* Reload some of our resources when the configuration changes.
-*
-* We don't reload everything when the configuration changes -- we probably
-* should, but getting that smooth is tough. Someday we'll fix that. In the
-* meantime, just update the things that we know change.
-*/
+     * Reload some of our resources when the configuration changes.
+     *
+     * We don't reload everything when the configuration changes -- we probably
+     * should, but getting that smooth is tough.  Someday we'll fix that.  In the
+     * meantime, just update the things that we know change.
+     */
     void updateResources() {
         final Context context = mContext;
         final Resources res = context.getResources();
@@ -2796,7 +2796,7 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
             R.dimen.status_bar_icon_padding);
 
         if (newIconHPadding != mIconHPadding || newIconSize != mIconSize) {
-// Slog.d(TAG, "size=" + newIconSize + " padding=" + newIconHPadding);
+//            Slog.d(TAG, "size=" + newIconSize + " padding=" + newIconHPadding);
             mIconHPadding = newIconHPadding;
             mIconSize = newIconSize;
             //reloadAllNotificationIcons(); // reload the tray
@@ -2924,10 +2924,10 @@ mHandler.sendEmptyMessageDelayed(MSG_HIDE_INTRUDER, INTRUDER_ALERT_DECAY_MS);
     }
 
     /**
-* ContentObserver to watch for Quick Settings tiles changes
-* @author dvtonder
-*
-*/
+     *  ContentObserver to watch for Quick Settings tiles changes
+     * @author dvtonder
+     *
+     */
     private class TilesChangedObserver extends ContentObserver {
         public TilesChangedObserver(Handler handler) {
             super(handler);
